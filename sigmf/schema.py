@@ -7,7 +7,7 @@
 '''Schema IO'''
 
 import json
-import os
+from pathlib import Path
 
 from . import utils
 
@@ -21,10 +21,9 @@ def get_schema(version=None, schema_file=SCHEMA_META):
 
     TODO: In the future load specific schema versions.
     '''
-    schema_path = os.path.join(
-        utils.get_schema_path(os.path.dirname(utils.__file__)),
-        schema_file
-    )
+    
+    schema_path = Path.joinpath(utils.get_schema_path(Path.parent(utils.__file__)), schema_file)
+    # schema_path = os.path.join(utils.get_schema_path(os.path.dirname(utils.__file__)), schema_file)
     with open(schema_path, 'rb') as handle:
         schema = json.load(handle)
     return schema
